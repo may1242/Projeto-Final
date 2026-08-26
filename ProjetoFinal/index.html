@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Plano Familiar de Emergência - Defesa Civil</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="cabecalho">
+        <div class="container">
+            <h1>Defesa Civil - Apoio Comunitário</h1>
+            <p>Preparação e prevenção para a segurança da sua família</p>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Plano Familiar de Emergência</h2>
+            <p>Preencha os dados da sua residência e família para gerar orientações personalizadas diante dos principais riscos da sua região.</p>
+        </div>
+    </section>
+
+    <main class="container conteudo-principal">
+        <section class="secao-formulario">
+            <h3>Configuração do Plano</h3>
+            <form id="formularioPlano">
+                <div class="campo">
+                    <label for="numeroPessoas">Número de Pessoas na Residência:</label>
+                    <input type="number" id="numeroPessoas" min="1" placeholder="Ex: 4" required>
+                </div>
+
+                <div class="campo">
+                    <label for="tipoResidencia">Tipo de Residência:</label>
+                    <select id="tipoResidencia" required>
+                        <option value="">Selecione...</option>
+                        <option value="casa">Casa</option>
+                        <option value="apartamento">Apartamento</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="possuiCriancas">Possui Crianças?</label>
+                    <select id="possuiCriancas" required>
+                        <option value="">Selecione...</option>
+                        <option value="sim">Sim</option>
+                        <option value="nao">Não</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="possuiIdosos">Possui Idosos?</label>
+                    <select id="possuiIdosos" required>
+                        <option value="">Selecione...</option>
+                        <option value="sim">Sim</option>
+                        <option value="nao">Não</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="principalRisco">Principal Risco da Região:</label>
+                    <select id="principalRisco" required>
+                        <option value="">Selecione...</option>
+                        <option value="enchente">Enchente</option>
+                        <option value="deslizamento">Deslizamento</option>
+                        <option value="vendaval">Vendaval</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="btnGerarPlano">Gerar Meu Plano</button>
+            </form>
+        </section>
+
+        <!-- Container para exibição de mensagens de erro -->
+        <div id="mensagemErro" class="mensagem-erro esconde"></div>
+
+        <!-- Área do Resultado (inicialmente oculta) -->
+        <section id="secaoResultado" class="secao-resultado esconde">
+            <h3>Resultado do Seu Plano de Emergência</h3>
+           
+            <div class="bloco-resultado" id="resumoFamilia">
+                <h4>Resumo da Família</h4>
+                <p id="textoResumoFamilia"></p>
+            </div>
+
+            <div class="bloco-resultado">
+                <h4>Antes da Emergência</h4>
+                <ul id="listaAntesEmergencia"></ul>
+            </div>
+
+            <div class="bloco-resultado">
+                <h4>Durante a Emergência</h4>
+                <ul id="listaDuranteEmergencia"></ul>
+            </div>
+
+            <div class="bloco-resultado">
+                <h4>Recomendações Específicas do Risco</h4>
+                <p id="textoRecomendacaoRisco"></p>
+            </div>
+
+            <div class="bloco-resultado idosos-criancas" id="blocoEspecial">
+                <h4>Observações de Apoio Especial</h4>
+                <ul id="listaObservacoesEspeciais"></ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+        <div class="container">
+            <p>&copy; 2026 Defesa Civil - Orientação para Prevenção de Desastres. Projeto demonstrativo.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
