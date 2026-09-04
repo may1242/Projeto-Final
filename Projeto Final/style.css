@@ -1,0 +1,201 @@
+/* O seletor '*' aplica essas regras a todos os elementos da página (Reset de CSS) */
+* {
+    margin: 0; /* Remove todas as margens externas padrão do navegador */
+    padding: 0; /* Remove todos os espaçamentos internos (preenchimentos) padrão */
+    box-sizing: border-box; /* Faz com que o padding e a borda sejam incluídos na largura e altura totais do elemento */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Define a fonte padrão e suas opções de fallback */
+}
+
+/* Estilos gerais para o corpo da página */
+body {
+    background-color: #f4f7fb; /* Define uma cor de fundo azul/cinza bem clara */
+    color: #333; /* Define a cor do texto principal como um cinza escuro (melhor para leitura que o preto puro) */
+}
+
+/* Estilos para o cabeçalho no topo da página */
+header {
+    background-color: #0d47a1; /* Define a cor de fundo do cabeçalho como azul escuro */
+    color: white; /* Define a cor do texto dentro do cabeçalho como branco */
+    padding: 20px; /* Adiciona 20 pixels de espaço interno em todos os lados */
+    display: flex; /* Transforma o cabeçalho em um contêiner flexível (para alinhar itens lado a lado) */
+    justify-content: space-between; /* Espalha os itens: o primeiro encosta na esquerda, o último na direita */
+    align-items: center; /* Alinha os itens verticalmente no centro do cabeçalho */
+}
+
+/* Estilo para a classe principal da logo */
+.logo {
+    font-size: 24px; /* Aumenta o tamanho da fonte para 24 pixels */
+    font-weight: bold; /* Deixa o texto em negrito */
+}
+
+/* Estilo para o texto secundário (slogan ou subtítulo) junto à logo */
+.sub-logo {
+    font-size: 16px; /* Define um tamanho de fonte menor (16 pixels) */
+    font-weight: normal; /* Garante que o texto não fique em negrito */
+    opacity: 0.8; /* Deixa o texto levemente transparente (80% de visibilidade) */
+}
+
+/* Estilos para os links de navegação dentro da tag <nav> */
+nav a {
+    color: white; /* Define a cor do link como branco */
+    text-decoration: none; /* Remove o sublinhado padrão dos links */
+    margin-left: 20px; /* Empurra cada link 20 pixels para a direita, separando-os */
+    font-weight: 500; /* Deixa a fonte com um peso médio (um pouco mais grossa que o normal) */
+}
+
+/* Estilo para quando o link estiver indicando a página atual (ativo) */
+nav a.ativo {
+    border-bottom: 2px solid white; /* Adiciona uma linha branca de 2px embaixo do link */
+    padding-bottom: 5px; /* Cria um espaço de 5px entre o texto do link e a linha inferior */
+}
+
+/* Estilos para o contêiner de conteúdo principal */
+main {
+    max-width: 900px; /* Limita a largura máxima do conteúdo a 900 pixels */
+    margin: 40px auto; /* Adiciona 40px de margem em cima/embaixo e centraliza a caixa horizontalmente (auto) */
+    padding: 20px; /* Adiciona 20px de espaço interno */
+    background-color: white; /* Define o fundo da caixa principal como branco */
+    border-radius: 12px; /* Arredonda os cantos da caixa em 12 pixels */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Cria uma sombra suave (5% de opacidade) ao redor da caixa para dar efeito 3D */
+}
+
+/* Classe utilitária para mostrar uma seção */
+.secao-ativa {
+    display: block; /* Torna o elemento visível, comportando-se como um bloco padrão */
+}
+
+/* Classe utilitária para esconder uma seção */
+.secao-oculta {
+    display: none; /* Oculta totalmente o elemento da página */
+}
+
+/* Estilos para a seção de destaque (Hero) */
+.hero {
+    text-align: center; /* Centraliza todo o texto dentro desta seção */
+    margin-bottom: 40px; /* Empurra o conteúdo abaixo desta seção 40 pixels para baixo */
+}
+
+/* Estilo para o título principal dentro da seção Hero */
+.hero h1 {
+    color: #0d47a1; /* Define a cor do título como azul escuro */
+    margin-bottom: 15px; /* Adiciona um espaço de 15px abaixo do título */
+    font-size: 32px; /* Define um tamanho de fonte grande (32 pixels) */
+}
+
+/* Contêiner que agrupa os cartões de benefícios */
+.beneficios-container {
+    display: flex; /* Coloca os cartões lado a lado */
+    gap: 20px; /* Cria um espaço fixo de 20px entre os cartões */
+    margin-bottom: 40px; /* Empurra o conteúdo abaixo deste contêiner 40 pixels para baixo */
+}
+
+/* Estilo individual para cada cartão de benefício */
+.card-beneficio {
+    background-color: #e3f2fd; /* Fundo azul bem claro para o cartão */
+    padding: 20px; /* Espaçamento interno de 20px */
+    border-radius: 8px; /* Cantos arredondados em 8px */
+    flex: 1; /* Faz com que todos os cartões dividam o espaço disponível igualmente */
+    text-align: center; /* Centraliza o texto dentro do cartão */
+    display: flex; /* Transforma o cartão em um contêiner flexível */
+    flex-direction: column; /* Organiza os itens do cartão (imagem, título, texto) de cima para baixo */
+    align-items: center; /* Centraliza os itens horizontalmente no cartão */
+}
+
+/* Estilo para as imagens dentro dos cartões de benefício */
+.img-beneficio {
+    width: 100%; /* Faz a imagem ocupar toda a largura disponível do cartão */
+    height: 160px; /* Define uma altura fixa de 160px para todas as imagens */
+    object-fit: cover; /* Corta a imagem proporcionalmente para caber no espaço sem distorcer */
+    border-radius: 6px; /* Arredonda os cantos da imagem em 6px */
+    margin-bottom: 15px; /* Adiciona 15px de espaço abaixo da imagem */
+}
+
+/* Estilo para os títulos dentro dos cartões de benefício */
+.card-beneficio h3 {
+    color: #1565c0; /* Define a cor azul para o título do cartão */
+    margin-bottom: 10px; /* Adiciona 10px de espaço abaixo do título */
+}
+
+/* Classe utilitária para centralizar botões ou ações */
+.acao-central {
+    text-align: center; /* Centraliza o conteúdo (normalmente botões) horizontalmente */
+}
+
+/* Estilo do botão de ação principal */
+.btn-principal {
+    background-color: #1976d2; /* Cor de fundo azul padrão */
+    color: white; /* Texto do botão em branco */
+    border: none; /* Remove a borda padrão do botão */
+    padding: 12px 24px; /* Espaço interno: 12px em cima/baixo, 24px nas laterais */
+    font-size: 16px; /* Tamanho da fonte do botão */
+    border-radius: 6px; /* Cantos arredondados em 6px */
+    cursor: pointer; /* Muda o cursor para uma 'mãozinha' quando passa o mouse por cima */
+    font-weight: bold; /* Deixa o texto do botão em negrito */
+    transition: 0.3s; /* Cria uma transição suave de 0.3 segundos para efeitos (como hover) */
+}
+
+/* Efeito ao passar o mouse sobre o botão principal */
+.btn-principal:hover {
+    background-color: #0d47a1; /* Escurece a cor de fundo do botão para dar feedback visual */
+}
+
+/* Estilo do botão de ação secundário */
+.btn-secundario {
+    background-color: #e0e0e0; /* Cor de fundo cinza claro */
+    color: #333; /* Texto em cinza escuro */
+    border: none; /* Remove a borda padrão */
+    padding: 12px 24px; /* Mesmo preenchimento do botão principal */
+    font-size: 16px; /* Mesmo tamanho de fonte do botão principal */
+    border-radius: 6px; /* Cantos arredondados em 6px */
+    cursor: pointer; /* Muda o cursor para 'mãozinha' */
+    margin-left: 10px; /* Dá um espaço de 10px à esquerda, para separá-lo do botão principal */
+}
+
+/* Estilos para o formulário */
+form {
+    margin-top: 20px; /* Adiciona 20px de espaço acima do formulário */
+}
+
+/* Classes para agrupar campos de formulário (inputs) */
+.grupo-input, .grupo-inline {
+    margin-bottom: 15px; /* Adiciona 15px de espaço abaixo de cada grupo de campos */
+}
+
+/* Estilo para as etiquetas (labels) dos campos de formulário */
+label {
+    display: block; /* Faz o label ocupar a linha inteira, jogando o input para a linha de baixo */
+    margin-bottom: 5px; /* Adiciona um pequeno espaço entre o label e o input */
+    font-weight: bold; /* Deixa o texto do label em negrito */
+    color: #444; /* Define um tom de cinza escuro para o texto */
+}
+
+/* Estilos aplicados aos campos de texto (input) e menus suspensos (select) */
+input, select {
+    width: 100%; /* Faz o campo ocupar 100% da largura do seu contêiner */
+    padding: 10px; /* Adiciona 10px de espaço interno para não ficar espremido */
+    border: 1px solid #ccc; /* Adiciona uma borda cinza clara de 1px */
+    border-radius: 5px; /* Arredonda os cantos do campo em 5px */
+    font-size: 16px; /* Define o tamanho do texto digitado como 16px */
+}
+
+/* Estilo para a caixa de destaque do plano selecionado */
+.plano-box {
+    background-color: #f1f8e9; /* Fundo verde bem claro (indicando sucesso/confirmação) */
+    border-left: 5px solid #2e7d32; /* Adiciona uma borda verde escura espessa apenas no lado esquerdo */
+    padding: 20px; /* Espaço interno de 20px */
+    margin-top: 20px; /* Espaço de 20px acima da caixa */
+    margin-bottom: 20px; /* Espaço de 20px abaixo da caixa */
+    border-radius: 0 8px 8px 0; /* Arredonda os cantos, mas mantém a esquerda (onde tem a borda) reta (0) */
+}
+
+/* Estilo para o título dentro da caixa de plano */
+.plano-box h3 {
+    color: #2e7d32; /* Título em verde escuro, combinando com a borda lateral */
+    margin-top: 15px; /* Espaço acima do título */
+    margin-bottom: 5px; /* Espaço abaixo do título */
+}
+
+/* Estilo para a lista de itens dentro da caixa de plano */
+.plano-box ul {
+    margin-left: 20px; /* Empurra a lista 20px para a direita, criando o recuo dos "bullet points" */
+}

@@ -1,0 +1,162 @@
+<!-- Declara que este é um documento HTML5 moderno -->
+<!DOCTYPE html>
+<!-- Inicia o HTML e define o idioma da página como Português do Brasil -->
+<html lang="pt-BR">
+<head>
+    <!-- Configuração de caracteres para aceitar acentos e cedilha corretamente -->
+    <meta charset="UTF-8">
+    <!-- Garante que a página se adapte bem em telas de celulares (responsividade) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título que aparece na aba do navegador -->
+    <title>Defesa Civil - Plano Familiar</title>
+    <!-- Conecta esta página ao arquivo de design (CSS) que vai dar cores e layout -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Cabeçalho do site (Logo e Menu) -->
+    <header>
+        <div class="logo">
+            Defesa Civíl <span class="sub-logo">| Proteção </span>
+        </div>
+        <nav>
+            <!-- Botão que chama a função JS para voltar à tela inicial -->
+            <button class="btn-principal" onclick="voltarParaApresentacao()">Início</button>
+            <a href="#" class="ativo">Plano Familiar</a>
+        </nav>
+    </header>
+
+    <!-- Área principal onde ficam as 3 telas do sistema -->
+    <main>
+        
+        <!-- TELA 1: APRESENTAÇÃO (Começa visível)      -->
+        <section id="apresentacao" class="secao-ativa">
+            <div class="hero">
+                <h1>Proteja quem você ama.</h1>
+                <p>Ter um Plano Familiar de Emergência é o primeiro passo para garantir a segurança da sua casa em situações de risco.</p>
+            </div>
+            
+            <!-- Cards mostrando os benefícios de fazer o plano -->
+            <div class="beneficios-container">
+                <div class="card-beneficio">
+                    <img src="Imagens/imagem.jpeg" alt="Família" class="img-beneficio">
+                    <h3>+10.000 Famílias</h3>
+                    <p>Já criaram seus planos e sabem exatamente como agir em emergências.</p>
+                </div>
+                <div class="card-beneficio">
+                    <img src="Imagens/respiro.jpeg" alt="Pessoa respirando calma" class="img-beneficio">
+                    <h3>Ação Rápida</h3>
+                    <p>Reduz o pânico e agiliza a saída para locais seguros quando cada segundo importa.</p>
+                </div>
+                <div class="card-beneficio">
+                    <img src="Imagens/teto.jpeg" alt="Família protegida sob teto" class="img-beneficio">
+                    <h3>Proteção Focada</h3>
+                    <p>Estratégias específicas para cuidar de crianças e idosos durante desastres.</p>
+                </div>
+            </div>
+
+            <div class="acao-central">
+                <!-- Botão que chama a função JS para esconder esta tela e mostrar o formulário -->
+                <button class="btn-principal" onclick="mostrarFormulario()">Criar meu Plano Familiar agora</button>
+            </div>
+        </section>
+
+        <!-- TELA 2: FORMULÁRIO (Começa escondida)      -->
+        <section id="configuracao" class="secao-oculta">
+            <h2>Configure seu Plano</h2>
+            <p>Preencha os dados abaixo para gerarmos recomendações personalizadas.</p>
+            
+            <!-- Formulário: quando o usuário clica em enviar, chama a função principal no JS -->
+            <form id="formPlano" onsubmit="gerarPlanoFamiliar(event)">
+                
+                <!-- Cada campo (input/select) tem um 'id'. É através desse 'id' que o JS captura as respostas -->
+                <div class="grupo-input">
+                    <label for="numPessoas">Número de pessoas na residência:</label>
+                    <!-- Campo de número, no mínimo 1, preenchimento obrigatório (required) -->
+                    <input type="number" id="numPessoas" min="1" required>
+                </div>
+
+                <div class="grupo-input">
+                    <label for="tipoResidencia">Tipo de residência:</label>
+                    <select id="tipoResidencia" required>
+                        <option value="">Selecione...</option>
+                        <option value="Casa">Casa</option>
+                        <option value="Apartamento">Apartamento</option>
+                    </select>
+                </div>
+
+                <div class="grupo-inline">
+                    <label>Possui crianças?</label>
+                    <select id="possuiCriancas" required>
+                        <option value="">Selecione...</option>
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>
+                    </select>
+                </div>
+
+                <div class="grupo-inline">
+                    <label>Possui idosos?</label>
+                    <select id="possuiIdosos" required>
+                        <option value="">Selecione...</option>
+                        <option value="Sim">Sim</option>
+                        <option value="Não">Não</option>
+                    </select>
+                </div>
+
+                <div class="grupo-input">
+                    <label for="riscoPrincipal">Principal risco da região:</label>
+                    <select id="riscoPrincipal" required>
+                        <option value="">Selecione o risco...</option>
+                        <option value="Enchente">Enchente</option>
+                        <option value="Deslizamento">Deslizamento</option>
+                        <option value="Vendaval">Vendaval</option>
+                    </select>
+                </div>
+
+                <!-- Botões de ação do formulário -->
+                <button type="submit" class="btn-principal">Gerar meu plano</button>
+                <button type="button" class="btn-secundario" onclick="voltarParaApresentacao()">Voltar</button>
+            </form>
+        </section>
+
+        <!-- TELA 3: RESULTADO (Começa escondida)       -->
+        <section id="resultado" class="secao-oculta">
+            <h2>Seu Plano Familiar de Emergência</h2>
+            
+            <div class="plano-box">
+                <!-- Os elementos com 'id' vazio (como resumoFamilia) são os lugares onde o JS vai "escrever" os textos gerados -->
+                <h3>Resumo da Família</h3>
+                <p id="resumoFamilia"></p>
+                
+                <h3>Recomendações para: <span id="tituloRisco"></span></h3>
+                <p id="recomendacaoRisco"></p>
+
+                <!-- Dicas gerais estáticas (sempre aparecem) -->
+                <h3>Antes da Emergência</h3>
+                <ul>
+                    <li>Prepare um kit de sobrevivência com água, alimentos não perecíveis, lanterna e documentos.</li>
+                    <li>Combine um ponto de encontro seguro com todos os membros da família.</li>
+                </ul>
+
+                <h3>Durante a Emergência</h3>
+                <ul>
+                    <li>Mantenha a calma e siga as rotas de fuga planejadas.</li>
+                    <li>Acompanhe os canais oficiais da Defesa Civil (Ligue 199 em caso de risco iminente).</li>
+                </ul>
+
+                <!-- Caixa de alertas especiais (crianças/idosos). Começa invisível (display: none) e o JS decide se mostra ou não -->
+                <div id="alertasEspeciais" style="display: none;">
+                    <h3>Observações Especiais</h3>
+                    <p id="alertaCrianca"></p>
+                    <p id="alertaIdoso"></p>
+                </div>
+            </div>
+
+            <!-- Botão para recomeçar o processo -->
+            <button class="btn-principal" onclick="voltarParaApresentacao()">Fazer novo plano</button>
+        </section>
+    </main>
+
+    <!-- Conecta a página HTML ao arquivo JavaScript que contém a lógica explicada antes -->
+    <script src="script.js"></script>
+</body>
+</html>
