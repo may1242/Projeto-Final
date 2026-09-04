@@ -1,155 +1,102 @@
+// Função para sair da tela inicial e mostrar a tela com o formulário
+function mostrarFormulario() {
+    // Esconde a tela de apresentação
+    document.getElementById('apresentacao').style.display = 'none';
+    // Mostra a tela de configuração (formulário)
+    document.getElementById('configuracao').style.display = 'block';
+    // Garante que a tela de resultado continue escondida
+    document.getElementById('resultado').style.display = 'none';
+}
 
-// Projeto Final: Dedesa Cívil --> Gerador de Plano Familiar
-// Alunos: Maria Luiza, Pablo, Everton, Murilo e Samuel
+// Função para cancelar e voltar à tela inicial
+function voltarParaApresentacao() {
+    // Esconde o formulário
+    document.getElementById('configuracao').style.display = 'none';
+    // Esconde a tela de resultado (caso esteja aberta)
+    document.getElementById('resultado').style.display = 'none';
+    // Mostra novamente a tela de apresentação
+    document.getElementById('apresentacao').style.display = 'block';
+    // Limpa todos os campos preenchidos no formulário
+    document.getElementById('formPlano').reset(); 
+}
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    const formulario = document.getElementById('formularioPlano');
-    formulario.addEventListener('submit', processarPlanoEmergencia);
-});
-
-/*** Função Principal para processar os dados e controlar a exibição na página.
- * @param {Event} event - Evento de envio do formulário */
-function processarPlanoEmergencia(event) {
-    // Previne o recarregamento automático do formulário
+// Função principal executada ao enviar o formulário
+function gerarPlanoFamiliar(event) {
+    // Evita que a página seja recarregada automaticamente (comportamento padrão de formulários)
     event.preventDefault();
 
-    // 1. Obtém os dados dcoocados no "gráfico"
-    const numeroPessoas = parseInt(document.getElementById('numeroPessoas').value, 10);
-    const tipoResidencia = document.getElementById('tipoResidencia').value;
-    const possuiCriancas = document.getElementById('possuiCriancas').value;
-    const possuiIdosos = document.getElementById('possuiIdosos').value;
-    const principalRisco = document.getElementById('principalRisco').value;
+    // Captura os valores que o usuário digitou ou selecionou no formulário
+    let numPessoas = document.getElementById('numPessoas').value;
+    let tipoResidencia = document.getElementById('tipoResidencia').value;
+    let possuiCriancas = document.getElementById('possuiCriancas').value;
+    let possuiIdosos = document.getElementById('possuiIdosos').value;
+    let riscoPrincipal = document.getElementById('riscoPrincipal').value;
 
-    // Elementos de mensagem e resultado
-    const divErro = document.getElementById('mensagemErro');
-    const secaoResultado = document.getElementById('secaoResultado');
-
-    // Limpa estado anterior de erro e resultado
-    divErro.classList.add('esconde');
-    divErro.textContent = '';
-
-    // 2. Valida as entradas do usuário
-    const mensagemValidacao = validarEntradas(numeroPessoas, tipoResidencia, possuiCriancas, possuiIdosos, principalRisco);
-    if (mensagemValidacao !== '') {
-        divErro.textContent = mensagemValidacao;
-        divErro.classList.remove('esconde');
-        secaoResultado.classList.add('esconde');
-        return;
+    // Validação de segurança: verifica se o número de pessoas é zero ou negativo
+    if (numPessoas <= 0) {
+        alert("O número de pessoas deve ser maior que zero.");
+        return; // Interrompe a função aqui se o número for inválido
     }
 
-    // 3. Aplica as regras do problema
-    const planoGerado = gerarRegrasPlano(numeroPessoas, tipoResidencia, possuiCriancas, possuiIdosos, principalRisco);
+    // Monta uma frase dinâmica com o tipo de residência e número de pessoas
+    let textoResumo = `Residência tipo ${tipoResidencia} com ${numPessoas} pessoa(s).`;
+    // Insere essa frase montada na tela de resultado
+    document.getElementById('resumoFamilia').textContent = textoResumo;
 
-    // 4. Exibe o resultado na página
-    exibirResultadoNaTela(planoGerado);
-}
+    // Variável para guardar o texto de orientação do risco escolhido
+    let textoRisco = "";
+    // Coloca o nome do risco (ex: "Enchente") como um título na tela de resultado
+    document.getElementById('tituloRisco').textContent = riscoPrincipal;
 
-/**
- * Realiza as validações básicas de preenchimento.
- */
-function validarEntradas(numeroPessoas, tipoResidencia, possuiCriancas, possuiIdosos, principalRisco) {
-    if (isNaN(numeroPessoas) || numeroPessoas <= 0) {
-        return 'Por favor, informe um número válido e positivo de pessoas na residência.';
+    // Avalia qual foi o risco selecionado e define as instruções adequadas
+    if (riscoPrincipal === "Enchente") {
+        textoRisco = "Oriente sua família sobre as áreas alagadas da região. Busque um local seguro e alto. Acompanhe as informações oficiais de medição do rio.";
+    } else if (riscoPrincipal === "Deslizamento") {
+        textoRisco = "Oriente o afastamento imediato de encostas e áreas de risco. Fique atento a rachaduras no terreno ou paredes.";
+    } else if (riscoPrincipal === "Vendaval") {
+        textoRisco = "Oriente a permanência em local protegido. Mantenham-se afastados de árvores, janelas e estruturas frágeis que possam ceder.";
     }
-    if (!tipoResidencia || !possuiCriancas || !possuiIdosos || !principalRisco) {
-        return 'Por favor, preencha todos os campos do formulário para continuar.';
-    }
-    return '';
-}
+    // Insere o texto da instrução na tela
+    document.getElementById('recomendacaoRisco').textContent = textoRisco;
 
-/**
- * Contém as regras condicionais (if/else ou switch) do sistema.
- */
-function gerarRegrasPlano(numeroPessoas, tipoResidencia, possuiCriancas, possuiIdosos, principalRisco) {
-    const plano = {
-        resumo: 'Residência do tipo ${tipoResidencia.toUpperCase()} composta por ${numeroPessoas} pessoa(s). Principal risco mapeado: ${principalRisco.toUpperCase()}.',
-        antes: [
-            'Monte um kit de emergência contendo água, alimentos não perecíveis, lanterna, pilhas e itens de primeiros socorros.',
-            'Mantenha documentos importantes em sacos plásticos impermeáveis e em local de fácil acesso.',
-            'Cadastre seu celular para receber alertas oficiais da Defesa Civil enviando o CEP por SMS para 40199.'
-        ],
-        durante: [
-            'Mantenha a calma e desligue os disjuntores de energia e o registro de gás caso seja necessário abandonar o local.',
-            'Acompanhe rigorosamente os avisos e notícias emitidos pelos canais oficiais de comunicação.',
-            'Não tente atravessar locais alagados ou de risco a pé ou com veículos.'
-        ],
-        orientacaoRisco: '',
-        observacoesEspeciais: []
-    };
+    // Seleciona os elementos HTML relacionados aos alertas de crianças e idosos
+    let divAlertas = document.getElementById('alertasEspeciais'); // Caixa geral dos alertas
+    let pCrianca = document.getElementById('alertaCrianca');      // Parágrafo das crianças
+    let pIdoso = document.getElementById('alertaIdoso');          // Parágrafo dos idosos
+    
+    // Variável que servirá como um "sinal" para saber se a caixa geral precisa ser mostrada
+    let mostrarAlertas = false;
 
-    // Regras por Tipo de Risco
-    switch (principalRisco) {
-        case 'enchente':
-            plano.orientacaoRisco = 'Evite o contato direto com a água de alagamentos (risco de contaminação). Em caso de elevação da água, vá para um local seguro predeterminado ou pavimento mais alto.';
-            break;
-        case 'deslizamento':
-            plano.orientacaoRisco = 'Mantenha-se afastado de encostas e barrancos. Fique atento a sinais como inclinação de árvores/postes, rachaduras nas paredes ou águas barrentas descendo o morro.';
-            break;
-        case 'vendaval':
-            plano.orientacaoRisco = 'Permaneça em local fechado e protegido. Mantenha distância de janelas, vidros, árvores, placas e estruturas frágeis que possam ser derrubadas pelo vento.';
-            break;
-        default:
-            plano.orientacaoRisco = 'Mantenha-se em local seguro e acompanhe as instruções das autoridades locais.';
-    }
-
-    // Regra específica para Crianças
-    if (possuiCriancas === 'sim') {
-        plano.observacoesEspeciais.push('Orientações para Crianças: Mantenha as crianças acompanhadas o tempo todo sob a responsabilidade explícita de um adulto. Explique a situação de forma calma e mantenha cartões de identificação nos bolsos delas.');
-    }
-
-    // Regra específica para Idosos
-    if (possuiIdosos === 'sim') {
-        plano.observacoesEspeciais.push('Orientações para Idosos: Garanta apoio e auxílio especial durante a evacuação e deslocamentos. Separe com antecedência receitas médicas e medicamentos de uso contínuo no kit de emergência.');
-    }
-
-    return plano;
-}
-
-/**
- * Atualiza o DOM e torna visível o resultado gerado.
- */
-function exibirResultadoNaTela(plano) {
-    // Atualiza o resumo
-    document.getElementById('textoResumoFamilia').textContent = plano.resumo;
-
-    // Atualiza Recomendações do Risco
-    document.getElementById('textoRecomendacaoRisco').textContent = plano.orientacaoRisco;
-
-    // Atualiza "Antes da Emergência"
-    const listaAntes = document.getElementById('listaAntesEmergencia');
-    listaAntes.innerHTML = '';
-    plano.antes.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = item;
-        listaAntes.appendChild(li);
-    });
-
-    // Atualiza "Durante a Emergência"
-    const listaDurante = document.getElementById('listaDuranteEmergencia');
-    listaDurante.innerHTML = '';
-    plano.durante.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = item;
-        listaDurante.appendChild(li);
-    });
-
-    // Atualiza Observações para Crianças / Idosos
-    const blocoEspecial = document.getElementById('blocoEspecial');
-    const listaEspecial = document.getElementById('listaObservacoesEspeciais');
-    listaEspecial.innerHTML = '';
-
-    if (plano.observacoesEspeciais.length > 0) {
-        blocoEspecial.classList.remove('esconde');
-        plano.observacoesEspeciais.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = item;
-            listaEspecial.appendChild(li);
-        });
+    // Verifica se o usuário marcou que possui crianças
+    if (possuiCriancas === "Sim") {
+        // Preenche a instrução específica para crianças
+        pCrianca.textContent = "Crianças: Garanta acompanhamento e responsabilidade contínua. Mantenha-as calmas e explique a situação de forma simples.";
+        pCrianca.style.display = "block"; // Torna o parágrafo visível
+        mostrarAlertas = true;            // Sinaliza que há pelo menos um alerta a ser exibido
     } else {
-        blocoEspecial.classList.add('esconde');
+        pCrianca.style.display = "none";  // Esconde o parágrafo se não houver crianças
     }
 
-    // Torna a seção de resultado visível na página
-    document.getElementById('secaoResultado').classList.remove('esconde');
+    // Verifica se o usuário marcou que possui idosos
+    if (possuiIdosos === "Sim") {
+        // Preenche a instrução específica para idosos
+        pIdoso.textContent = "Idosos: Adicione uma orientação específica de apoio físico para deslocamento. Garanta que os medicamentos de uso contínuo estejam no kit de emergência.";
+        pIdoso.style.display = "block"; // Torna o parágrafo visível
+        mostrarAlertas = true;          // Sinaliza que há pelo menos um alerta a ser exibido
+    } else {
+        pIdoso.style.display = "none";  // Esconde o parágrafo se não houver idosos
+    }
+
+    // Se houver crianças OU idosos, mostra a caixa geral de alertas
+    if (mostrarAlertas) {
+        divAlertas.style.display = "block";
+    } else {
+        // Se não houver nenhum dos dois, mantém a caixa geral escondida
+        divAlertas.style.display = "none";
+    }
+
+    // Esconde o formulário
+    document.getElementById('configuracao').style.display = 'none';
+    // Mostra a tela final com o Plano Familiar gerado
+    document.getElementById('resultado').style.display = 'block';
 }
